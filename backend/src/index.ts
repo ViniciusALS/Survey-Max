@@ -1,7 +1,12 @@
-console.log('Hello typescript !');
+import express from 'express';
 
-function dD2dD() {
-	return 2;
-}
+const app = express();
+const port = 3000;
 
-dD2dD();
+app.get('/', (req, res) => {
+	res.send('Hello World!');
+});
+
+app.listen(port, () => {
+	console.log(`Example app listening at http://localhost:${ port }`);
+});
