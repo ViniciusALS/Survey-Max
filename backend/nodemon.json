@@ -1,0 +1,10 @@
+{
+	"ext": "ts",
+	"ignore": ["*.test.ts", "node_modules"],
+	"execMap": {
+		"ts": "ts-node"
+	},
+	"events": {
+		"restart": "clear"
+	}
+}
