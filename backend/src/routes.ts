@@ -1,7 +1,7 @@
 import { Router, Response } from 'express';
-// import UserController from './controllers/UserController';
+import UserController from './controllers/UserController';
 // import AccountController from './controllers/AccountController';
-// import Validation from './models/Validation';
+import Validation from './models/validation';
 // import authController from './controllers/AuthController';
 
 
@@ -9,9 +9,9 @@ const routes = Router();
 
 routes.get('/', (_, res:Response) => res.status(204).send());
 
-// routes.post('/signup',
-// 	Validation.signup,
-// 	UserController.signUp);
+routes.post('/signup',
+	Validation.signup,
+	UserController.signUp);
 
 // routes.post('/signin',
 // 	Validation.signin,
