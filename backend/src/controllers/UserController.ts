@@ -10,17 +10,16 @@ dotenv.config({ path: 'secure/.env' });
 
 export default class UserController {
 
-	public static async signUp (req: Request, res: Response): Promise<Response> {
+	public static async signUp(req: Request, res: Response): Promise<Response> {
 
 		try {
 			const fistName: string = req.body.firstName;
 			const lastName: string = req.body.lastName;
-			const username: string = req.body.nickname;
+			const username: string = req.body.userName;
 			const email: string = req.body.email;
 			const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
 
 			const userId = await UserQueries.createUser(fistName, lastName, username, email, hashedPassword);
-
 
 			const accessToken = authController.generateAccessToken(userId);
 			const refreshToken = await authController.generateRefreshToken(userId);
