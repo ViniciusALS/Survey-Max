@@ -5,7 +5,7 @@ dotenv.config({ path: 'secure/.env' });
 
 const pool = createPool({
 
-	database: 'canvasMaker',
+	database: 'survey_max',
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_PASSWORD,
