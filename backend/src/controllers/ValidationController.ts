@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { validationResult, ValidationChain } from 'express-validator';
 import ValidationModel from '../models/ValidationModel';
 import RequestError from '../models/RequestError';
+import UserQueries from '../database/UserQueries';
 
 
 export default class ValidationController {
@@ -42,14 +43,11 @@ export default class ValidationController {
 			return;
 
 
-		// const existingUserAccount = await UserQueries.findAccountByNickOrEmail(req.body.nickname, req.body.email);
-
-		// if (existingUserAccount) {
-
-		// 	const errors = RequestError.userAlreadyExists;
-		// 	res.status(400).json({ errors });
-		// 	return;
-		// }
+		if (await UserQueries.findAccountByUsername(req.body.userName)) {
+			const errors = RequestError.userAlreadyExists;
+			res.status(400).json({ errors });
+			return;
+		}
 
 		next();
 	}
