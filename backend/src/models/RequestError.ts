@@ -16,7 +16,7 @@ export default class RequestError {
 	}
 
 	static get userAlreadyExists():string[] {
-		return ['A user already exists with this nickname.'];
+		return ['A user already exists with this username.'];
 	}
 
 	static get userDoesNotExist(): string[] {
