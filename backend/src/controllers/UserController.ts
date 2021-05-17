@@ -26,9 +26,8 @@ export default class UserController {
 
 			return res.status(200).json({ accessToken, refreshToken });
 		}
-		catch (error) {
-			console.log(error);
-			return res.sendStatus(500);
+		catch (errors) {
+			return res.sendStatus(500).send(errors);
 		}
 	}
 
