@@ -1,17 +1,16 @@
 import dotenv from 'dotenv';
-// import { Request, Response, NextFunction } from 'express';
-// import RequestError from '../models/RequestError';
+import { Request, Response } from 'express';
+import RequestError from '../models/RequestError';
 import TokenQueries from '../database/TokensQueries';
 import jwt from 'jsonwebtoken';
 
 dotenv.config({ path: 'secure/.env' });
 
-// interface Token {
-// 	userId: number,
-// 	iat: number,
-// 	exp: number,
-// 	iss: string
-// }
+interface Token {
+	userId: number,
+	iat: number,
+	exp: number
+}
 
 export default class AuthController {
 
@@ -66,32 +65,34 @@ export default class AuthController {
 	// }
 
 
-	// public static refreshToken(req: Request, res: Response): Response {
+	public static refreshToken(req: Request, res: Response): Response {
 
 
-	// 	const refreshToken = req.header('refreshToken');
+		const refreshToken = req.body.refreshToken;
 
-	// 	if (typeof refreshToken === 'undefined') {
-	// 		const errors = RequestError.missingAuthHeader;
-	// 		return res.status(403).json({ errors });
-	// 	}
+		if (!refreshToken) {
+			const errors = RequestError.missingAuthHeader;
+			return res.status(403).json({ errors });
+		}
 
 
-	// 	jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!, (error, authData) => {
-	// 		if (error) {
-	// 			console.log(error);
-	// 			return res.status(403).send();
-	// 		}
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!, (error:any, authData:any) => {
+			if (error) {
+				console.log(error);
+				return res.status(403).send();
+			}
 
-	// 		const verifiedToken = <Token>authData;
+			const verifiedToken = <Token>authData;
 
-	// 		const accessToken = AuthController.generateAccessToken(verifiedToken.userId);
+			const accessToken = AuthController.generateAccessToken(verifiedToken.userId);
 
-	// 		return res.status(200).json({ accessToken });
-	// 	});
+			return res.status(200).json({ accessToken });
+		});
 
-	// 	return res.sendStatus(500);
-	// }
+		return res.sendStatus(500);
+	}
+
 
 	// public static logout(req: Request, res: Response): Response {
 	// 	let AccountsId = 0;
