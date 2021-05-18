@@ -4,11 +4,11 @@ import { OkPacket, FieldPacket, RowDataPacket } from 'mysql2';
 
 interface User extends RowDataPacket {
 	id: number,
-  fistName: string,
-  lastName: string,
+	fistName: string,
+	lastName: string,
 	userName: string,
-  email: string
-  hashPassword: string
+	email: string
+	hashPassword: string
 }
 
 export default class UserQueries {
@@ -59,6 +59,18 @@ export default class UserQueries {
 
 		const [account, _]:[User[], FieldPacket[]] = await pool.query(
 			'SELECT id FROM users WHERE id = ?', accountId);
+
+		if (account.length > 0)
+			return account[0];
+
+		return null;
+	}
+
+	public static async findAccountByEmail(email:string):Promise<User|null> {
+
+		const [account, _]: [User[], FieldPacket[]] = await pool.query(
+			'SELECT * FROM users WHERE email = ?',
+			[email]);
 
 		if (account.length > 0)
 			return account[0];

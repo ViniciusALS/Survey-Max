@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import { Request, Response } from 'express';
 import UserQueries from '../database/UserQueries';
 import bcrypt from 'bcrypt';
-// import RequestError from '../models/RequestError';
+import RequestError from '../models/RequestError';
 import AuthController from './AuthController';
 
 dotenv.config({ path: 'secure/.env' });
@@ -32,29 +32,28 @@ export default class UserController {
 	}
 
 
-	// public static async signIn(req: Request, res: Response): Promise<Response> {
+	public static async signIn(req: Request, res: Response): Promise<Response> {
 
-	// 	try {
-	// 		const localUser = await UserQueries.findLocalByEmail(req.body.email);
+		try {
+			const user = await UserQueries.findAccountByEmail(req.body.email);
 
-	// 		if (!localUser)
-	// 			return res.status(404).json({ 'errors': RequestError.userDoesNotExist });
-
-
-	// 		const isPasswordRight = await bcrypt.compare(req.body.password, localUser.password);
-
-	// 		if (!isPasswordRight)
-	// 			return res.status(401).json({ 'errors': RequestError.incorrectPassword });
+			if (!user)
+				return res.status(404).json({ 'errors': RequestError.userDoesNotExist });
 
 
-	// 		const accessToken = authController.generateAccessToken(localUser.AccountsId);
-	// 		const refreshToken = await authController.generateRefreshToken(localUser.AccountsId);
+			const isPasswordRight = await bcrypt.compare(req.body.password, user.hashedPassword);
 
-	// 		return res.status(200).json({ accessToken, refreshToken });
-	// 	}
-	// 	catch (error) {
-	// 		console.log(error);
-	// 		return res.sendStatus(500);
-	// 	}
-	// }
+			if (!isPasswordRight)
+				return res.status(401).json({ 'errors': RequestError.incorrectPassword });
+
+
+			const accessToken = AuthController.generateAccessToken(user.AccountsId);
+			const refreshToken = await AuthController.generateRefreshToken(user.AccountsId);
+
+			return res.status(200).json({ accessToken, refreshToken });
+		}
+		catch (errors) {
+			return res.sendStatus(500).send(errors);
+		}
+	}
 }
