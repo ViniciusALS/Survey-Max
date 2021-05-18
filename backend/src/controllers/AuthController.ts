@@ -16,7 +16,7 @@ export default class AuthController {
 
 	public static generateAccessToken(userId:number):string {
 		return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET!, {
-			expiresIn: '10s'
+			expiresIn: '1m'
 		});
 	}
 
