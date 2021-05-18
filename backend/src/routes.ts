@@ -13,7 +13,7 @@ routes.post('/api/signup',
 	ValidationController.signUp,
 	UserController.signUp);
 
-routes.post('/signin',
+routes.post('/api/signin',
 	ValidationController.signIn,
 	UserController.signIn);
 
