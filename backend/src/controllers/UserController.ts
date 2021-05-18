@@ -56,4 +56,14 @@ export default class UserController {
 			return res.sendStatus(500).send(errors);
 		}
 	}
+
+	public static async createSurvey(req: Request, res: Response): Promise<Response> {
+
+		try {
+			return res.status(200);
+		}
+		catch (errors) {
+			return res.sendStatus(500).send(errors);
+		}
+	}
 }
