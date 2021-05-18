@@ -67,6 +67,7 @@ export default class ValidationController {
 		await ValidationController.checkValidation(req, res, next, validations);
 	}
 
+
 	public static async createSurvey(req: Request, res: Response, next: NextFunction):Promise<void> {
 
 		const validations: ValidationChain[] = ValidationModel.createSurvey;

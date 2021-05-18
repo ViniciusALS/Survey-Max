@@ -4,6 +4,7 @@ import UserQueries from '../database/UserQueries';
 import bcrypt from 'bcrypt';
 import RequestError from '../models/RequestError';
 import AuthController from './AuthController';
+import SurveyQueries from '../database/SurveyQueries';
 
 dotenv.config({ path: 'secure/.env' });
 
@@ -60,7 +61,13 @@ export default class UserController {
 	public static async createSurvey(req: Request, res: Response): Promise<Response> {
 
 		try {
-			return res.status(200);
+
+			const userId = req.id;
+			const surveyTitle = req.body.title;
+
+			const surveyId = await SurveyQueries.createSurvey(userId!, surveyTitle);
+
+			return res.status(200).json({ surveyId });
 		}
 		catch (errors) {
 			return res.sendStatus(500).send(errors);
