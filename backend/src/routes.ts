@@ -11,6 +11,8 @@ routes.get('/', (_, res:Response) => res.status(204).send());
 
 routes.post('/api/signup',
 	ValidationController.signUp,
+	ValidationController.uniqueUsername,
+	ValidationController.uniqueEmail,
 	UserController.signUp);
 
 routes.post('/api/signin',

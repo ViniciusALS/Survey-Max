@@ -22,18 +22,36 @@ export default class ValidationController {
 		return true;
 	}
 
+	private static async checkValidation(req: Request, res: Response, next: NextFunction, validations: ValidationChain[]): Promise<void> {
+		const isValidRequest = await ValidationController.validateRequest(req, res, validations);
+		if (!isValidRequest)
+			return;
+
+		next();
+	}
 
 	public static async signUp(req: Request, res: Response, next: NextFunction):Promise<void> {
 
 		const validations: ValidationChain[] = ValidationModel.signUp;
 
-		const isValidRequest = await ValidationController.validateRequest(req, res, validations);
-		if (!isValidRequest)
-			return;
+		await ValidationController.checkValidation(req, res, next, validations);
+	}
 
+	public static async uniqueUsername(req: Request, res: Response, next: NextFunction): Promise<void> {
 
 		if (await UserQueries.findAccountByUsername(req.body.userName)) {
-			const errors = RequestError.userAlreadyExists;
+			const errors = RequestError.usernameAlreadyExists;
+			res.status(400).json({ errors });
+			return;
+		}
+
+		next();
+	}
+
+	public static async uniqueEmail(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+		if (await UserQueries.findAccountByEmail(req.body.email)) {
+			const errors = RequestError.emailAlreadyExists;
 			res.status(400).json({ errors });
 			return;
 		}
