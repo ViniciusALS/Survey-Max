@@ -30,7 +30,7 @@ export default class AuthController {
 	}
 
 
-	public static getAccessToken(req: Request, res: Response, next: NextFunction): void {
+	public static checkAccessToken(req: Request, res: Response, next: NextFunction): void {
 
 		const bearesHeader = req.headers.authorization;
 
