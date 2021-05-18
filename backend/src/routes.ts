@@ -32,4 +32,7 @@ routes.post('/api/editSurvey',
 	AuthController.checkAccessToken,
 	UserController.editSurvey);
 
+routes.post('/api/createQuestion',
+	ValidationController.createQuestion);
+
 export default routes;
