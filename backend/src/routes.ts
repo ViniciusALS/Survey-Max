@@ -13,9 +13,9 @@ routes.post('/api/signup',
 	ValidationController.signUp,
 	UserController.signUp);
 
-// routes.post('/signin',
-// 	Validation.signin,
-// 	UserController.signIn);
+routes.post('/signin',
+	ValidationController.signIn,
+	UserController.signIn);
 
 // routes.get('/refreshToken', authController.refreshToken);
 
