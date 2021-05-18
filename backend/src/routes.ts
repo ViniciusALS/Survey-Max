@@ -2,7 +2,7 @@ import { Router, Response } from 'express';
 import UserController from './controllers/UserController';
 // import AccountController from './controllers/AccountController';
 import ValidationController from './controllers/ValidationController';
-// import authController from './controllers/AuthController';
+import AuthController from './controllers/AuthController';
 
 
 const routes = Router();
@@ -17,7 +17,7 @@ routes.post('/api/signin',
 	ValidationController.signIn,
 	UserController.signIn);
 
-// routes.get('/refreshToken', authController.refreshToken);
+routes.get('/api/refreshToken', AuthController.refreshToken);
 
 // routes.post('/logout', authController.logout);
 
