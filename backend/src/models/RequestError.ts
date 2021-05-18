@@ -15,9 +15,14 @@ export default class RequestError {
 		return ['Method field is invalid.'];
 	}
 
-	static get userAlreadyExists():string[] {
+	static get usernameAlreadyExists():string[] {
 		return ['A user already exists with this username.'];
 	}
+
+	static get emailAlreadyExists(): string[] {
+		return ['A user already exists with this email.'];
+	}
+
 
 	static get userDoesNotExist(): string[] {
 		return ['A user with this email does not exist.'];
