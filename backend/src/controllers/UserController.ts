@@ -41,14 +41,14 @@ export default class UserController {
 				return res.status(404).json({ 'errors': RequestError.userDoesNotExist });
 
 
-			const isPasswordRight = await bcrypt.compare(req.body.password, user.hashedPassword);
+			const isPasswordRight = await bcrypt.compare(req.body.password, user.hashPassword);
 
 			if (!isPasswordRight)
 				return res.status(401).json({ 'errors': RequestError.incorrectPassword });
 
 
-			const accessToken = AuthController.generateAccessToken(user.AccountsId);
-			const refreshToken = await AuthController.generateRefreshToken(user.AccountsId);
+			const accessToken = AuthController.generateAccessToken(user.id);
+			const refreshToken = await AuthController.generateRefreshToken(user.id);
 
 			return res.status(200).json({ accessToken, refreshToken });
 		}
