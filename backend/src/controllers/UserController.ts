@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import UserQueries from '../database/UserQueries';
 import bcrypt from 'bcrypt';
 // import RequestError from '../models/RequestError';
-import authController from './AuthController';
+import AuthController from './AuthController';
 
 dotenv.config({ path: 'secure/.env' });
 
@@ -21,8 +21,8 @@ export default class UserController {
 
 			const userId = await UserQueries.createUser(fistName, lastName, username, email, hashedPassword);
 
-			const accessToken = authController.generateAccessToken(userId);
-			const refreshToken = await authController.generateRefreshToken(userId);
+			const accessToken = AuthController.generateAccessToken(userId);
+			const refreshToken = await AuthController.generateRefreshToken(userId);
 
 			return res.status(200).json({ accessToken, refreshToken });
 		}
