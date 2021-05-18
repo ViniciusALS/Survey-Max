@@ -34,7 +34,7 @@ export default class ValidationController {
 	// ];
 
 
-	public static async signup(req: Request, res: Response, next: NextFunction):Promise<void> {
+	public static async signUp(req: Request, res: Response, next: NextFunction):Promise<void> {
 
 		const validations: ValidationChain[] = ValidationModel.signup;
 

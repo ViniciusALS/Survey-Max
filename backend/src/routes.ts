@@ -10,7 +10,7 @@ const routes = Router();
 routes.get('/', (_, res:Response) => res.status(204).send());
 
 routes.post('/api/signup',
-	ValidationController.signup,
+	ValidationController.signUp,
 	UserController.signUp);
 
 // routes.post('/signin',
