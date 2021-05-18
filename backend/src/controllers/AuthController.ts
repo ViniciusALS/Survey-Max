@@ -68,9 +68,9 @@ export default class AuthController {
 	public static refreshToken(req: Request, res: Response): Response {
 
 
-		const refreshToken = req.body.refreshToken;
+		const refreshToken = req.header('refreshToken');
 
-		if (!refreshToken) {
+		if (typeof refreshToken === 'undefined') {
 			const errors = RequestError.missingAuthHeader;
 			return res.status(403).json({ errors });
 		}
