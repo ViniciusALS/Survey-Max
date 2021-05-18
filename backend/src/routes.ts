@@ -20,8 +20,6 @@ routes.post('/api/signin',
 routes.get('/api/refreshToken',
 	AuthController.refreshToken);
 
-routes.post('/logout', AuthController.logout);
-
 
 // routes.post('/updateProfilePicture', AccountController.updateProfilePicture);
 
