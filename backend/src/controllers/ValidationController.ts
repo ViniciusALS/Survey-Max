@@ -23,17 +23,6 @@ export default class ValidationController {
 	}
 
 
-	// private static localSigninValidation = [
-	// 	body('email').exists().withMessage('Email field missing.')
-	// 		.if(body('email').exists())
-	// 		.trim().isEmail().normalizeEmail().withMessage('Email format is incorrect.'),
-
-	// 	body('password').exists().withMessage('Password field missing.')
-	// 		.if(body('password').exists())
-	// 		.isLength({ min: 7 }).withMessage('Password should be at least 7 characters long.')
-	// ];
-
-
 	public static async signUp(req: Request, res: Response, next: NextFunction):Promise<void> {
 
 		const validations: ValidationChain[] = ValidationModel.signUp;
