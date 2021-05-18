@@ -36,7 +36,7 @@ export default class ValidationController {
 
 	public static async signUp(req: Request, res: Response, next: NextFunction):Promise<void> {
 
-		const validations: ValidationChain[] = ValidationModel.signup;
+		const validations: ValidationChain[] = ValidationModel.signUp;
 
 		const isValidRequest = await ValidationController.validateRequest(req, res, validations);
 		if (!isValidRequest)
@@ -53,26 +53,14 @@ export default class ValidationController {
 	}
 
 
-	// public static async signin(req: Request, res: Response, next: NextFunction):Promise<void> {
+	public static async signIn(req: Request, res: Response, next: NextFunction):Promise<void> {
 
-	// 	const method = Validation.getRequestMethod(req, res);
-	// 	if (!method) return;
+		const validations: ValidationChain[] = ValidationModel.signIn;
 
-	// 	let validations: ValidationChain[];
+		const isValidRequest = await ValidationController.validateRequest(req, res, validations);
+		if (!isValidRequest)
+			return;
 
-	// 	if (method === 'local') {
-	// 		validations = Validation.localSigninValidation;
-	// 	}
-	// 	else {
-	// 		const errors = RequestError.invalidMethod;
-	// 		res.status(400).json({ errors });
-	// 		return;
-	// 	}
-
-	// 	const isValidRequest = await Validation.validateRequest(req, res, validations);
-	// 	if (!isValidRequest)
-	// 		return;
-
-	// 	next();
-	// }
+		next();
+	}
 }
