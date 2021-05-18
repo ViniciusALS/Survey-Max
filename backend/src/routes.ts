@@ -17,9 +17,10 @@ routes.post('/api/signin',
 	ValidationController.signIn,
 	UserController.signIn);
 
-routes.get('/api/refreshToken', AuthController.refreshToken);
+routes.get('/api/refreshToken',
+	AuthController.refreshToken);
 
-// routes.post('/logout', authController.logout);
+routes.post('/logout', AuthController.logout);
 
 
 // routes.post('/updateProfilePicture', AccountController.updateProfilePicture);
