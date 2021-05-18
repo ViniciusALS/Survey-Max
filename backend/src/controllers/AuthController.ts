@@ -56,9 +56,9 @@ export default class AuthController {
 				return;
 			}
 
-			const varifiedToken = <Token>authData;
+			const verifiedToken = <Token>authData;
 
-			req.id = varifiedToken.userId;
+			req.id = verifiedToken.userId;
 
 			next();
 		});
