@@ -23,6 +23,7 @@ routes.get('/api/refreshToken',
 	AuthController.refreshToken);
 
 routes.post('/api/createSurvey',
+	ValidationController.createSurvey,
 	AuthController.checkAccessToken,
 	UserController.createSurvey);
 
