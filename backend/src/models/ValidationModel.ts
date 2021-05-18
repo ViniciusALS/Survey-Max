@@ -38,4 +38,10 @@ export default class ValidationModel {
 
 		body('title').exists().withMessage('title field missing.')
 	];
+
+	static createQuestion = [
+		body('surveyId').exists().withMessage('surveyId field missing.'),
+
+		body('question').exists().withMessage('question field missing.')
+	];
 }
