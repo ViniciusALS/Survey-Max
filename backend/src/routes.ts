@@ -27,5 +27,9 @@ routes.post('/api/createSurvey',
 	AuthController.checkAccessToken,
 	UserController.createSurvey);
 
+routes.post('/api/editSurvey',
+	ValidationController.editSurvey,
+	AuthController.checkAccessToken,
+	UserController.editSurvey);
 
 export default routes;

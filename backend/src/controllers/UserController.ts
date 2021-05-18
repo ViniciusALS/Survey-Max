@@ -28,7 +28,7 @@ export default class UserController {
 			return res.status(200).json({ accessToken, refreshToken });
 		}
 		catch (errors) {
-			return res.sendStatus(500).send(errors);
+			return res.status(500).send(errors);
 		}
 	}
 
@@ -54,7 +54,7 @@ export default class UserController {
 			return res.status(200).json({ accessToken, refreshToken });
 		}
 		catch (errors) {
-			return res.sendStatus(500).send(errors);
+			return res.status(500).send(errors);
 		}
 	}
 
@@ -70,7 +70,24 @@ export default class UserController {
 			return res.status(200).json({ surveyId });
 		}
 		catch (errors) {
-			return res.sendStatus(500).send(errors);
+			return res.status(500).send(errors);
+		}
+	}
+
+	public static async editSurvey(req: Request, res: Response): Promise<Response> {
+
+		try {
+
+			const userId = req.id;
+			const surveyId = req.body.surveyId;
+			const newSurveyTitle = req.body.title;
+
+			await SurveyQueries.editSurvey(userId!, surveyId, newSurveyTitle);
+
+			return res.sendStatus(200);
+		}
+		catch (errors) {
+			return res.status(500).send(errors);
 		}
 	}
 }

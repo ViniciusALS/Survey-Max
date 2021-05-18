@@ -32,4 +32,10 @@ export default class ValidationModel {
 	static createSurvey = [
 		body('title').exists().withMessage('title field missing.')
 	];
+
+	static editSurvey = [
+		body('surveyId').exists().withMessage('surveyId field missing.'),
+
+		body('title').exists().withMessage('title field missing.')
+	];
 }

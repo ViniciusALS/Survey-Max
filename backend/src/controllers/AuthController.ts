@@ -16,7 +16,7 @@ export default class AuthController {
 
 	public static generateAccessToken(userId:number):string {
 		return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET!, {
-			expiresIn: '1m'
+			expiresIn: '30m'
 		});
 	}
 
@@ -90,6 +90,6 @@ export default class AuthController {
 			return res.status(200).json({ accessToken });
 		});
 
-		return res.sendStatus(500);
+		return res.status(500);
 	}
 }
