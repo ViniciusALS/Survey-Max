@@ -20,8 +20,9 @@ routes.post('/api/signin',
 routes.get('/api/refreshToken',
 	AuthController.refreshToken);
 
-
-// routes.post('/updateProfilePicture', AccountController.updateProfilePicture);
+routes.post('/api/createSurvey',
+	AuthController.checkAccessToken,
+	UserController.createSurvey);
 
 
 export default routes;
