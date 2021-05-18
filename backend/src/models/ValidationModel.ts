@@ -28,4 +28,8 @@ export default class ValidationModel {
 			.if(body('password').exists())
 			.isLength({ min: 7 }).withMessage('Password should be at least 7 characters long.')
 	];
+
+	static createSurvey = [
+		body('title').exists().withMessage('title field missing.')
+	];
 }

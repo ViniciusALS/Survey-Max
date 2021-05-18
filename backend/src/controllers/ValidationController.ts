@@ -64,10 +64,13 @@ export default class ValidationController {
 
 		const validations: ValidationChain[] = ValidationModel.signIn;
 
-		const isValidRequest = await ValidationController.validateRequest(req, res, validations);
-		if (!isValidRequest)
-			return;
+		await ValidationController.checkValidation(req, res, next, validations);
+	}
 
-		next();
+	public static async createSurvey(req: Request, res: Response, next: NextFunction):Promise<void> {
+
+		const validations: ValidationChain[] = ValidationModel.createSurvey;
+
+		await ValidationController.checkValidation(req, res, next, validations);
 	}
 }
