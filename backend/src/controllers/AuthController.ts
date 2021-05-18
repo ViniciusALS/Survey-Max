@@ -92,47 +92,4 @@ export default class AuthController {
 
 		return res.sendStatus(500);
 	}
-
-
-	// public static logout(req: Request, res: Response): Response {
-	// 	let AccountsId = 0;
-
-	// 	try {
-	// 		const accessToken = req.header('authorization');
-	// 		const refreshToken = req.header('refreshToken');
-
-	// 		if (typeof refreshToken === 'undefined' || typeof accessToken === 'undefined') {
-	// 			const errors = RequestError.missingAuthHeader;
-	// 			return res.status(403).json({ errors });
-	// 		}
-
-
-	// 		jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET!, (error, authData) => {
-	// 			if (error)
-	// 				throw error;
-
-	// 			const token = <Token>authData!;
-
-	// 			AccountsId = token.userId;
-	// 		});
-
-	// 		jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!, async (error, authData) => {
-	// 			if (error)
-	// 				throw error;
-
-	// 			const token = <Token>authData!;
-
-	// 			if (token.userId !== AccountsId)
-	// 				throw new Error('Refresh token userId and access token userId don`t match.');
-
-	// 			await TokenQueries.removeRefreshToken(AccountsId, refreshToken);
-	// 		});
-	// 	}
-	// 	catch (error) {
-	// 		console.log(error);
-	// 		return res.sendStatus(500);
-	// 	}
-
-	// 	return res.sendStatus(200);
-	// }
 }
