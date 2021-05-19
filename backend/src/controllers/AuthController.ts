@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { Request, Response, NextFunction } from 'express';
 import RequestError from '../models/RequestError';
 import TokenQueries from '../database/TokensQueries';
+import SurveyQueries from '../database/SurveyQueries';
 import jwt from 'jsonwebtoken';
 
 dotenv.config({ path: 'secure/.env' });
@@ -91,5 +92,36 @@ export default class AuthController {
 		});
 
 		return res.status(500);
+	}
+
+	public static async checkUserOwnsSurvey(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+		try {
+			const userId = req.id;
+			const surveyId = req.body.surveyId;
+
+			const survey = await SurveyQueries.findSurveyById(surveyId);
+
+			if (!survey) {
+				const errors = RequestError.surveyDoesNotExist;
+				res.status(400).json({ errors });
+				return;
+			}
+
+
+			if (survey!.users_id !== userId) {
+				const errors = RequestError.surveyAccessDenied;
+				res.status(403).json({ errors });
+				return;
+			}
+		}
+		catch (error) {
+			console.log(error);
+			res.status(500);
+			return;
+		}
+		finally {
+			next();
+		}
 	}
 }
