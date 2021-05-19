@@ -39,4 +39,10 @@ routes.post('/api/createQuestion',
 	AuthController.checkUserOwnsSurvey,
 	UserController.createQuestion);
 
+routes.post('/api/editQuestion',
+	ValidationController.editQuestion,
+	AuthController.checkAccessToken,
+	AuthController.checkUserOwnsQuestion,
+	UserController.editQuestion);
+
 export default routes;
