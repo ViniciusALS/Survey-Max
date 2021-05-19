@@ -88,4 +88,11 @@ export default class ValidationController {
 
 		await ValidationController.checkValidation(req, res, next, validations);
 	}
+
+	public static async editQuestion(req: Request, res: Response, next: NextFunction):Promise<void> {
+
+		const validations: ValidationChain[] = ValidationModel.editQuestion;
+
+		await ValidationController.checkValidation(req, res, next, validations);
+	}
 }
