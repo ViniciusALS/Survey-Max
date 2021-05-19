@@ -1,5 +1,6 @@
 import pool from './Connection';
 import { OkPacket, FieldPacket, RowDataPacket } from 'mysql2';
+import dbTransaction from './dbTransaction';
 
 interface Survey extends RowDataPacket {
 	id: number,
@@ -25,25 +26,21 @@ export default class SurveyQueries {
 		await dbTransaction(
 			'UPDATE surveys SET title=? WHERE id=? AND users_id=?',
 			[title, surveyId, userId]);
-
-			await connection.commit();
 	}
 
-		catch (error) {
-			await connection.rollback();
-			throw error;
-		}
+	public static async createQuestion(surveyId: number, question: string):Promise<number> {
+		const result: OkPacket = await dbTransaction(
+			'INSERT INTO questions SET survey_id=?, question=?',
+			[surveyId, question]);
 
-		finally {
-			connection.release();
-		}
+		return result.insertId;
 	}
 
-	private static async findSurveyById(id:number):Promise<Survey|null> {
+	public static async findSurveyById(surveyId:number):Promise<Survey|null> {
 
 		const [survey, _]: [Survey[], FieldPacket[]] = await pool.query(
 			'SELECT * FROM surveys WHERE id = ?',
-			[id]);
+			[surveyId]);
 
 		if (survey.length > 0)
 			return survey[0];

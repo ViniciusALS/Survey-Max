@@ -30,10 +30,13 @@ routes.post('/api/createSurvey',
 routes.post('/api/editSurvey',
 	ValidationController.editSurvey,
 	AuthController.checkAccessToken,
+	AuthController.checkUserOwnsSurvey,
 	UserController.editSurvey);
 
 routes.post('/api/createQuestion',
 	ValidationController.createQuestion,
-	AuthController.checkAccessToken);
+	AuthController.checkAccessToken,
+	AuthController.checkUserOwnsSurvey,
+	UserController.createQuestion);
 
 export default routes;

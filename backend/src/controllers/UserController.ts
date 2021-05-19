@@ -90,4 +90,19 @@ export default class UserController {
 			return res.status(500).send(errors);
 		}
 	}
+
+	public static async createQuestion(req: Request, res: Response): Promise<Response> {
+
+		try {
+			const surveyId = req.body.surveyId;
+			const question = req.body.question;
+
+			const questionId = await SurveyQueries.createQuestion(surveyId, question);
+
+			return res.status(200).json({ questionId });
+		}
+		catch (errors) {
+			return res.status(500).send(errors);
+		}
+	}
 }
