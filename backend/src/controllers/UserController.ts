@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import RequestError from '../models/RequestError';
 import AuthController from './AuthController';
 import SurveyQueries from '../database/SurveyQueries';
+import QuestionQueries from '../database/QuestionQueries';
 
 dotenv.config({ path: 'secure/.env' });
 
@@ -97,7 +98,7 @@ export default class UserController {
 			const surveyId = req.body.surveyId;
 			const question = req.body.question;
 
-			const questionId = await SurveyQueries.createQuestion(surveyId, question);
+			const questionId = await QuestionQueries.createQuestion(surveyId, question);
 
 			return res.status(200).json({ questionId });
 		}

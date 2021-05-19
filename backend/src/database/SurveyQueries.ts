@@ -28,14 +28,6 @@ export default class SurveyQueries {
 			[title, surveyId, userId]);
 	}
 
-	public static async createQuestion(surveyId: number, question: string):Promise<number> {
-		const result: OkPacket = await dbTransaction(
-			'INSERT INTO questions SET survey_id=?, question=?',
-			[surveyId, question]);
-
-		return result.insertId;
-	}
-
 	public static async findSurveyById(surveyId:number):Promise<Survey|null> {
 
 		const [survey, _]: [Survey[], FieldPacket[]] = await pool.query(

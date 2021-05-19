@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import RequestError from '../models/RequestError';
 import TokenQueries from '../database/TokensQueries';
 import SurveyQueries from '../database/SurveyQueries';
+import QuestionQueries from '../database/QuestionQueries';
 import jwt from 'jsonwebtoken';
 
 dotenv.config({ path: 'secure/.env' });
@@ -98,9 +99,9 @@ export default class AuthController {
 
 		try {
 			const userId = req.id;
-			const surveyId = req.body.surveyId;
+			const givenSurveyId = req.body.surveyId;
 
-			const survey = await SurveyQueries.findSurveyById(surveyId);
+			const survey = await SurveyQueries.findSurveyById(givenSurveyId);
 
 			if (!survey) {
 				const errors = RequestError.surveyDoesNotExist;
@@ -110,7 +111,46 @@ export default class AuthController {
 
 
 			if (survey!.users_id !== userId) {
-				const errors = RequestError.surveyAccessDenied;
+				const errors = RequestError.accessDenied;
+				res.status(403).json({ errors });
+				return;
+			}
+		}
+		catch (error) {
+			console.log(error);
+			res.status(500);
+			return;
+		}
+		finally {
+			next();
+		}
+	}
+
+
+	public static async checkUserOwnsQuestion(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+		try {
+			const userId = req.id;
+			const givenQuestionId = req.body.questionId;
+
+			const question = await QuestionQueries.findQuestionById(givenQuestionId);
+
+			if (!question) {
+				const errors = RequestError.questionDoesNotExist;
+				res.status(400).json({ errors });
+				return;
+			}
+
+			const survey = await SurveyQueries.findSurveyById(question!.survey_id);
+
+			if (!survey) {
+				const errors = RequestError.surveyDoesNotExist;
+				res.status(400).json({ errors });
+				return;
+			}
+
+			if (survey!.users_id !== userId) {
+				const errors = RequestError.accessDenied;
 				res.status(403).json({ errors });
 				return;
 			}

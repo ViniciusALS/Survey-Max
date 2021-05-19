@@ -48,11 +48,15 @@ export default class RequestError {
 		return ['Only image files are allowed.'];
 	}
 
-	static get surveyAccessDenied(): string[] {
-		return ['Survey access denied.'];
+	static get accessDenied(): string[] {
+		return ['Access denied.'];
 	}
 
 	static get surveyDoesNotExist(): string[] {
 		return ['Survey id does not exist.'];
+	}
+
+	static get questionDoesNotExist(): string[] {
+		return ['Question id does not exist.'];
 	}
 }
