@@ -106,4 +106,21 @@ export default class UserController {
 			return res.status(500).send(errors);
 		}
 	}
+
+	public static async editQuestion(req: Request, res: Response): Promise<Response> {
+
+		try {
+
+			const surveyId = req.body.surveyId;
+			const questionId = req.body.surveyId;
+			const newQuestion = req.body.title;
+
+			await QuestionQueries.editQuestion(surveyId, questionId, newQuestion);
+
+			return res.sendStatus(200);
+		}
+		catch (errors) {
+			return res.status(500).send(errors);
+		}
+	}
 }
