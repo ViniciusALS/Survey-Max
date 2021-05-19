@@ -111,11 +111,10 @@ export default class UserController {
 
 		try {
 
-			const surveyId = req.body.surveyId;
-			const questionId = req.body.surveyId;
-			const newQuestion = req.body.title;
+			const questionId = req.body.questionId;
+			const newQuestion = req.body.question;
 
-			await QuestionQueries.editQuestion(surveyId, questionId, newQuestion);
+			await QuestionQueries.editQuestion(questionId, newQuestion);
 
 			return res.sendStatus(200);
 		}

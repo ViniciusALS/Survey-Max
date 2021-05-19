@@ -21,11 +21,11 @@ export default class QuestionQueries {
 		return result.insertId;
 	}
 
-	public static async editQuestion(questionId: number, surveyId: number, question: string): Promise<void> {
+	public static async editQuestion(questionId: number, question: string): Promise<void> {
 
 		await dbTransaction(
-			'UPDATE questions SET question=? WHERE id=? AND survey_id=?',
-			[question, questionId, surveyId]);
+			'UPDATE questions SET question=? WHERE id=?',
+			[question, questionId]);
 	}
 
 	public static async findQuestionById(questionId:number):Promise<Question|null> {
