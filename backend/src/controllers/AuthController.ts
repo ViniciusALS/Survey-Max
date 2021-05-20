@@ -5,6 +5,7 @@ import TokenQueries from '../database/TokensQueries';
 import SurveyQueries from '../database/SurveyQueries';
 import QuestionQueries from '../database/QuestionQueries';
 import jwt from 'jsonwebtoken';
+import OptionQueries from '../database/OptionQueries';
 
 dotenv.config({ path: 'secure/.env' });
 
@@ -142,6 +143,52 @@ export default class AuthController {
 			}
 
 			const survey = await SurveyQueries.findSurveyById(question!.survey_id);
+
+			if (!survey) {
+				const errors = RequestError.surveyDoesNotExist;
+				res.status(400).json({ errors });
+				return;
+			}
+
+			if (survey!.users_id !== userId) {
+				const errors = RequestError.accessDenied;
+				res.status(403).json({ errors });
+				return;
+			}
+		}
+		catch (error) {
+			console.log(error);
+			res.status(500);
+			return;
+		}
+		finally {
+			next();
+		}
+	}
+
+	public static async checkUserOwnsOption(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+		try {
+			const userId = req.id;
+			const givenOptionId = req.body.optionId;
+
+			const option = await OptionQueries.findOptionById(givenOptionId);
+
+			if (!option) {
+				const errors = RequestError.optionDoesNotExist;
+				res.status(400).json({ errors });
+				return;
+			}
+
+			const question = await QuestionQueries.findQuestionById(option!.question_id);
+
+			if (!question) {
+				const errors = RequestError.questionDoesNotExist;
+				res.status(400).json({ errors });
+				return;
+			}
+
+			const survey = await SurveyQueries.findSurveyById(option!.question_id);
 
 			if (!survey) {
 				const errors = RequestError.surveyDoesNotExist;
