@@ -46,4 +46,16 @@ export default class OptionQueries {
 
 		return null;
 	}
+
+	public static async listQuestionOptions(questionId:number):Promise<Option[]|null> {
+
+		const [options, _]: [Option[], FieldPacket[]] = await pool.query(
+			'SELECT * FROM options WHERE question_id = ?',
+			[questionId]);
+
+		if (options.length > 0)
+			return options;
+
+		return null;
+	}
 }

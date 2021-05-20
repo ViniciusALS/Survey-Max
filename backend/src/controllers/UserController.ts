@@ -167,4 +167,26 @@ export default class UserController {
 			return res.status(500).send(errors);
 		}
 	}
+
+	public static async deleteQuestion(req: Request, res: Response): Promise<Response> {
+
+		try {
+			const questionId = req.body.questionId;
+
+			const questionOptions = await OptionQueries.listQuestionOptions(questionId);
+
+			questionOptions!.forEach(async option => {
+				const optionId = option.id;
+
+				await OptionQueries.deleteOption(optionId);
+			});
+
+			await QuestionQueries.deleteQuestion(questionId);
+
+			return res.sendStatus(200);
+		}
+		catch (errors) {
+			return res.status(500).send(errors);
+		}
+	}
 }

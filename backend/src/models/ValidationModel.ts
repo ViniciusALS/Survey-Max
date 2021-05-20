@@ -66,4 +66,8 @@ export default class ValidationModel {
 	static deleteOption = [
 		body('optionId').exists().withMessage('optionId field missing.')
 	];
+
+	static deleteQuestion = [
+		body('questionId').exists().withMessage('questionId field missing.')
+	];
 }

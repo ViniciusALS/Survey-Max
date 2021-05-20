@@ -28,6 +28,13 @@ export default class QuestionQueries {
 			[question, questionId]);
 	}
 
+	public static async deleteQuestion(questionId: number): Promise<void> {
+
+		await dbTransaction(
+			'DELETE FROM questions WHERE id=?',
+			[questionId]);
+	}
+
 	public static async findQuestionById(questionId:number):Promise<Question|null> {
 
 		const [question, _]: [Question[], FieldPacket[]] = await pool.query(

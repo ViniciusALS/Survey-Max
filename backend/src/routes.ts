@@ -64,9 +64,9 @@ routes.delete('/api/deleteOption',
 	UserController.deleteOption);
 
 routes.delete('/api/deleteQuestion',
-	ValidationController.deleteOption,
+	ValidationController.deleteQuestion,
 	AuthController.checkAccessToken,
-	AuthController.checkUserOwnsOption,
-	UserController.deleteOption);
+	AuthController.checkUserOwnsQuestion,
+	UserController.deleteQuestion);
 
 export default routes;
