@@ -138,4 +138,19 @@ export default class UserController {
 			return res.status(500).send(errors);
 		}
 	}
+
+	public static async editOption(req: Request, res: Response): Promise<Response> {
+
+		try {
+			const optionId = req.body.optionId;
+			const option = req.body.option;
+
+			await OptionQueries.editOption(optionId, option);
+
+			return res.sendStatus(200);
+		}
+		catch (errors) {
+			return res.status(500).send(errors);
+		}
+	}
 }

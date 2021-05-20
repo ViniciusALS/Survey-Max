@@ -59,4 +59,8 @@ export default class RequestError {
 	static get questionDoesNotExist(): string[] {
 		return ['Question id does not exist.'];
 	}
+
+	static get optionDoesNotExist(): string[] {
+		return ['Option id does not exist.'];
+	}
 }
