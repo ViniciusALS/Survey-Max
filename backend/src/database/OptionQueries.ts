@@ -21,18 +21,18 @@ export default class OptionQueries {
 		return result.insertId;
 	}
 
-	public static async editOption(questionId: number, question: string): Promise<void> {
+	public static async editOption(optionId: number, option: string): Promise<void> {
 
 		await dbTransaction(
-			'UPDATE questions SET question=? WHERE id=?',
-			[question, questionId]);
+			'UPDATE options SET optionText=? WHERE id=?',
+			[option, optionId]);
 	}
 
-	public static async findOptionById(questionId:number):Promise<Option|null> {
+	public static async findOptionById(optionId:number):Promise<Option|null> {
 
 		const [question, _]: [Option[], FieldPacket[]] = await pool.query(
-			'SELECT * FROM questions WHERE id = ?',
-			[questionId]);
+			'SELECT * FROM options WHERE id = ?',
+			[optionId]);
 
 		if (question.length > 0)
 			return question[0];
