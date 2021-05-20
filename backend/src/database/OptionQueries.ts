@@ -28,6 +28,13 @@ export default class OptionQueries {
 			[option, optionId]);
 	}
 
+	public static async deleteOption(optionId: number): Promise<void> {
+
+		await dbTransaction(
+			'DELETE FROM options WHERE id=?',
+			[optionId]);
+	}
+
 	public static async findOptionById(optionId:number):Promise<Option|null> {
 
 		const [question, _]: [Option[], FieldPacket[]] = await pool.query(

@@ -109,4 +109,11 @@ export default class ValidationController {
 
 		await ValidationController.checkValidation(req, res, next, validations);
 	}
+
+	public static async deleteOption(req: Request, res: Response, next: NextFunction):Promise<void> {
+
+		const validations: ValidationChain[] = ValidationModel.deleteOption;
+
+		await ValidationController.checkValidation(req, res, next, validations);
+	}
 }

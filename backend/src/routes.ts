@@ -57,4 +57,10 @@ routes.post('/api/editOption',
 	AuthController.checkUserOwnsOption,
 	UserController.editOption);
 
+routes.delete('/api/deleteOption',
+	ValidationController.deleteOption,
+	AuthController.checkAccessToken,
+	AuthController.checkUserOwnsOption,
+	UserController.deleteOption);
+
 export default routes;

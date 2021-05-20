@@ -153,4 +153,18 @@ export default class UserController {
 			return res.status(500).send(errors);
 		}
 	}
+
+	public static async deleteOption(req: Request, res: Response): Promise<Response> {
+
+		try {
+			const optionId = req.body.optionId;
+
+			await OptionQueries.deleteOption(optionId);
+
+			return res.sendStatus(200);
+		}
+		catch (errors) {
+			return res.status(500).send(errors);
+		}
+	}
 }
