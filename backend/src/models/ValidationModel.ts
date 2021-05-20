@@ -58,7 +58,7 @@ export default class ValidationModel {
 	];
 
 	static editOption = [
-		body('optionId').exists().withMessage('questionId field missing.'),
+		body('optionId').exists().withMessage('optionId field missing.'),
 
 		body('option').exists().withMessage('option field missing.')
 	];
