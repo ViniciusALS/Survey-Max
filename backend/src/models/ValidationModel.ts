@@ -50,4 +50,10 @@ export default class ValidationModel {
 
 		body('question').exists().withMessage('question field missing.')
 	];
+
+	static createOption = [
+		body('questionId').exists().withMessage('surveyId field missing.'),
+
+		body('question').exists().withMessage('question field missing.')
+	];
 }

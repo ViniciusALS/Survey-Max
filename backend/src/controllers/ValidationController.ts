@@ -95,4 +95,11 @@ export default class ValidationController {
 
 		await ValidationController.checkValidation(req, res, next, validations);
 	}
+
+	public static async createOption(req: Request, res: Response, next: NextFunction):Promise<void> {
+
+		const validations: ValidationChain[] = ValidationModel.createOption;
+
+		await ValidationController.checkValidation(req, res, next, validations);
+	}
 }
