@@ -102,4 +102,11 @@ export default class ValidationController {
 
 		await ValidationController.checkValidation(req, res, next, validations);
 	}
+
+	public static async editOption(req: Request, res: Response, next: NextFunction):Promise<void> {
+
+		const validations: ValidationChain[] = ValidationModel.editOption;
+
+		await ValidationController.checkValidation(req, res, next, validations);
+	}
 }
