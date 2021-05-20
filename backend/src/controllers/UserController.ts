@@ -6,6 +6,7 @@ import RequestError from '../models/RequestError';
 import AuthController from './AuthController';
 import SurveyQueries from '../database/SurveyQueries';
 import QuestionQueries from '../database/QuestionQueries';
+import OptionQueries from '../database/OptionQueries';
 
 dotenv.config({ path: 'secure/.env' });
 
@@ -117,6 +118,21 @@ export default class UserController {
 			await QuestionQueries.editQuestion(questionId, newQuestion);
 
 			return res.sendStatus(200);
+		}
+		catch (errors) {
+			return res.status(500).send(errors);
+		}
+	}
+
+	public static async createOption(req: Request, res: Response): Promise<Response> {
+
+		try {
+			const questionId = req.body.questionId;
+			const option = req.body.option;
+
+			const optionId = await OptionQueries.createOption(questionId, option);
+
+			return res.status(200).json({ optionId });
 		}
 		catch (errors) {
 			return res.status(500).send(errors);
