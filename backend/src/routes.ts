@@ -45,4 +45,10 @@ routes.post('/api/editQuestion',
 	AuthController.checkUserOwnsQuestion,
 	UserController.editQuestion);
 
+routes.post('/api/createOption',
+	ValidationController.createOption,
+	AuthController.checkAccessToken,
+	AuthController.checkUserOwnsQuestion,
+	UserController.createOption);
+
 export default routes;
