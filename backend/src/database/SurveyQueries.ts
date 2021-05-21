@@ -28,6 +28,13 @@ export default class SurveyQueries {
 			[title, surveyId, userId]);
 	}
 
+	public static async deleteSurvey(surveyId: number): Promise<void> {
+
+		await dbTransaction(
+			'DELETE FROM surveys WHERE id=?',
+			[surveyId]);
+	}
+
 	public static async findSurveyById(surveyId:number):Promise<Survey|null> {
 
 		const [survey, _]: [Survey[], FieldPacket[]] = await pool.query(

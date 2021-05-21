@@ -46,4 +46,16 @@ export default class QuestionQueries {
 
 		return null;
 	}
+
+	public static async listSurveyQuestions(surveyId:number):Promise<Question[]|null> {
+
+		const [questions, _]: [Question[], FieldPacket[]] = await pool.query(
+			'SELECT * FROM questions WHERE survey_id = ?',
+			[surveyId]);
+
+		if (questions.length > 0)
+			return questions;
+
+		return null;
+	}
 }

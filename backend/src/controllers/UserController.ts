@@ -189,4 +189,36 @@ export default class UserController {
 			return res.status(500).send(errors);
 		}
 	}
+
+	public static async deleteSurvey(req: Request, res: Response): Promise<Response> {
+		try {
+			const surveyId = req.body.surveyId;
+
+			const surveyQuestions = await QuestionQueries.listSurveyQuestions(surveyId);
+
+			if (surveyQuestions) {
+				surveyQuestions.forEach(async question => {
+					const questionId = question.id;
+
+					const questionOptions = await OptionQueries.listQuestionOptions(questionId);
+
+					if (questionOptions) {
+						questionOptions!.forEach(async option => {
+							const optionId = option.id;
+
+							await OptionQueries.deleteOption(optionId);
+						});
+					}
+
+					await QuestionQueries.deleteQuestion(questionId);
+				});
+			}
+			await SurveyQueries.deleteSurvey(surveyId);
+
+			return res.sendStatus(200);
+		}
+		catch (errors) {
+			return res.status(500).send(errors);
+		}
+	}
 }

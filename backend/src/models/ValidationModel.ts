@@ -70,4 +70,8 @@ export default class ValidationModel {
 	static deleteQuestion = [
 		body('questionId').exists().withMessage('questionId field missing.')
 	];
+
+	static deleteSurvey = [
+		body('surveyId').exists().withMessage('surveyId field missing.')
+	];
 }
